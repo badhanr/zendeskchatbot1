@@ -1,0 +1,34 @@
+{
+  "type":             "problem",
+  "subject":          "Help, my printer is on fire!",
+  "description":      "The fire is very colorful.",
+  "priority":         "high",
+  "status":           "open",
+	"owner_id" : "OW12346",
+  "custom_fields": [
+    {
+		"id": 360001465651,
+      "value": "TC1234"
+    },
+    {
+      "id":    360001465671,
+      "value": "OW12346"
+    },
+	{
+      "id":    360001424032,
+      "value": "Rukhshan"
+    },
+	{
+      "id":    360001465691,
+      "value": "Rahman"
+    },
+	{
+      "id":    360001424192,
+      "value": "8884300686"
+    },
+    {
+      "id":    360001467331,
+      "value": "Hyderabad"
+    }
+  ]
+}
