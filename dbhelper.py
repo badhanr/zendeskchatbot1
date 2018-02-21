@@ -1,21 +1,21 @@
-import sqlite3
-
+import MySQLdb
 
 class DBHelper:
 
-    def __init__(self, dbname="servicebot.sqlite"):
-        self.dbname = dbname
-        self.conn = sqlite3.connect(dbname)
+    def __init__(self, dbname="sampledb"):
+        #self.dbname = dbname
+        db=MySQLdb.connect(host="172.30.115.81",port = 3306, user = "userRTL", passwd = "eNU1gYbC1EYLe6gN", db = "sampledb")
+        self.conn = db.cursor()
 
     def setup(self):
         tblstmt = "CREATE TABLE IF NOT EXISTS items (description text, owner text)"
         tblstmt2 = "CREATE TABLE IF NOT EXISTS cases (ticket_no number, log_date text, owner text, subject text, detail text,assignee text, department text, owner_fname text, owner_lname text, owner_phn text, owner_email text, owner_loc text, priority number, whd_ticket_id number)"
-        itemidx = "CREATE INDEX IF NOT EXISTS itemIndex ON items (description ASC)" 
-        ownidx = "CREATE INDEX IF NOT EXISTS ownIndex ON items (owner ASC)"
+        #itemidx = "CREATE INDEX IF NOT EXISTS itemIndex ON items (description ASC)" 
+        #ownidx = "CREATE INDEX IF NOT EXISTS ownIndex ON items (owner ASC)"
         self.conn.execute(tblstmt)
         self.conn.execute(tblstmt2)
-        self.conn.execute(itemidx)
-        self.conn.execute(ownidx)
+        #self.conn.execute(itemidx)
+        #self.conn.execute(ownidx)
         self.conn.commit()
 
     def add_item(self, item_text, owner):
