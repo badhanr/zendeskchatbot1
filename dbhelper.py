@@ -4,7 +4,7 @@ class DBHelper:
 
     def __init__(self, dbname="sampledb"):
         #self.dbname = dbname
-        db=MySQLdb.connect(host="172.30.115.81",port = 3306, user = "userRTL", passwd = "eNU1gYbC1EYLe6gN", db = "sampledb")
+        self.db=MySQLdb.connect(host="172.30.115.81",port = 3306, user = "userRTL", passwd = "eNU1gYbC1EYLe6gN", db = "sampledb")
         self.conn = db.cursor()
 
     def setup(self):
@@ -16,13 +16,13 @@ class DBHelper:
         self.conn.execute(tblstmt2)
         #self.conn.execute(itemidx)
         #self.conn.execute(ownidx)
-        self.conn.commit()
+        self.db.commit()
 
     def add_item(self, item_text, owner):
         stmt = "INSERT INTO items (description, owner) VALUES (?, ?)"
         args = (item_text, owner)
         self.conn.execute(stmt, args)
-        self.conn.commit()
+        self.db.commit()
 
     def delete_item(self, item_text, owner):
         stmt = "DELETE FROM items WHERE description = (?) AND owner = (?)"
