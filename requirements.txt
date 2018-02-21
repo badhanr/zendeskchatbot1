@@ -1,0 +1,7 @@
+gunicorn
+Flask
+MySQL
+requests
+sklearn
+nltk
+pickle
