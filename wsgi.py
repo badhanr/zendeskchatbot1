@@ -4,6 +4,7 @@ import time
 import urllib
 import datetime
 import random
+from flask import Flask
 
 from dbhelper import DBHelper
 from chat2classconversion import MLhelper
@@ -19,6 +20,8 @@ TOKEN = "540902937:AAFvz9_nV7xagpxiaT_8YZ_TnE2UYSSYSH0"
 URL = "https://api.telegram.org/bot{}/".format(TOKEN)
 
 correspondent_list = (open('correspondent.txt').read()).split("\n")
+
+application = Flask(__Name__)
 
 def get_url(url):
     response = requests.get(url)
@@ -132,15 +135,6 @@ def send_message(text, chat_id, reply_markup=None):
     get_url(url)
 
 
-def main():
-    db.setup()
-    last_update_id = None
-    while True:
-        updates = get_updates(last_update_id)
-        if len(updates["result"]) > 0:
-            last_update_id = get_last_update_id(updates) + 1
-            handle_updates(updates)
-        time.sleep(0.95)
 
 def command(text,chat,firstName):
     if text.lower() == 'clear chat' or text.lower() == 'cc' or text == 'Clear Chat History':
@@ -292,6 +286,19 @@ def escalate_request(chat,text):
     sendHelptext(chat)
     global action
     action = None
+    
+@application.route("/")
+def start():
+    db.setup()
+    last_update_id = None
+    while True:
+        updates = get_updates(last_update_id)
+        if len(updates["result"]) > 0:
+            last_update_id = get_last_update_id(updates) + 1
+            handle_updates(updates)
+            time.sleep(0.95)
+    return "application running"
 
 if __name__ == '__main__':
-    main()
+    application.debug = true
+    application.run()
